@@ -3,6 +3,7 @@
 github.com/auth0/go-jwt-middleware
 # github.com/codegangsta/negroni v1.0.0
 ## explicit
+github.com/codegangsta/negroni
 # github.com/form3tech-oss/jwt-go v3.2.2+incompatible
 ## explicit
 github.com/form3tech-oss/jwt-go
@@ -11,6 +12,9 @@ github.com/form3tech-oss/jwt-go
 # github.com/gorilla/mux v1.8.0
 ## explicit
 github.com/gorilla/mux
+# github.com/rs/cors v1.8.0
+## explicit
+github.com/rs/cors
 # gopkg.in/ini.v1 v1.63.2
 ## explicit
 gopkg.in/ini.v1
