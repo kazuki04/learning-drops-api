@@ -35,11 +35,14 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
+// This middleware verifies whether the token is valid with aud and iss
+//
+//
 func JwtMiddleware() *jwtmiddleware.JWTMiddleware {
 	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
 			// Verify 'aud' claim
-			aud := config.Config.Identifier
+			aud := config.Config.Audience
 			checkAud := token.Claims.(jwt.MapClaims).VerifyAudience(aud, false)
 			if !checkAud {
 				return token, errors.New("Invalid audience.")
