@@ -2,13 +2,21 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/learning-drops-api/config"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/learning-drops-api/config"
+	"github.com/learning-drops-api/router"
+
+	"github.com/rs/cors"
 )
 
+var corsWrapper = cors.New(cors.Options{
+	AllowedOrigins: []string{"http://localhost:3000"},
+	AllowedMethods: []string{"GET", "POST"},
+	AllowedHeaders: []string{"Content-Type", "Origin", "Accept", "*"},
+})
+
 func StartWebServer() error {
-	r := mux.NewRouter()
-	return http.ListenAndServe(fmt.Sprintf(":%d", config.Config.Port), r)
+	r := router.New()
+	return http.ListenAndServe(fmt.Sprintf(":%d", config.Config.Port), corsWrapper.Handler(r))
 }
