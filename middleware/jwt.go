@@ -36,8 +36,6 @@ type CustomClaims struct {
 }
 
 // This middleware verifies whether the token is valid with aud and iss
-//
-//
 func JwtMiddleware() *jwtmiddleware.JWTMiddleware {
 	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
 		// Return the public key to validate the JWT.
