@@ -40,6 +40,7 @@ type CustomClaims struct {
 //
 func JwtMiddleware() *jwtmiddleware.JWTMiddleware {
 	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
+		// Return the public key to validate the JWT.
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
 			// Verify 'aud' claim
 			aud := config.Config.Audience
@@ -58,15 +59,18 @@ func JwtMiddleware() *jwtmiddleware.JWTMiddleware {
 			if err != nil {
 				panic(err.Error())
 			}
-
+			// Parse PEM encoded PKCS1 or PKCS8 public key
 			result, _ := jwt.ParseRSAPublicKeyFromPEM([]byte(cert))
 			return result, nil
 		},
+		// the middelware verifies that tokens are signed with the RS256 algorithm
 		SigningMethod: jwt.SigningMethodRS256,
 	})
 	return jwtMiddleware
 }
 
+// Get the remote JWKS for Auth0 account
+// and return the certificate with the public key in PEM format.
 func getPemCert(token *jwt.Token) (string, error) {
 	cert := ""
 	resp, err := http.Get(fmt.Sprintf("https://%s/.well-known/jwks.json", config.Config.Domain))
@@ -90,8 +94,7 @@ func getPemCert(token *jwt.Token) (string, error) {
 	}
 
 	if cert == "" {
-		err := errors.New("Unable to find appropriate key.")
-		return cert, err
+		return cert, errors.New("Unable to find appropriate key.")
 	}
 
 	return cert, nil
