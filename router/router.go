@@ -6,12 +6,16 @@ import (
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
+	"github.com/learning-drops-api/app/api"
+	"github.com/learning-drops-api/handler"
 	"github.com/learning-drops-api/middleware"
 )
 
 func New() *mux.Router {
 	jwtMiddleware := midleware.JwtMiddleware()
 	r := mux.NewRouter()
+
+	r.HandleFunc("/api/section", api.ApiMakeHandler(handler.SaveSectionHandler))
 
 	// This route is always accessible
 	r.Handle("/api/public", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
