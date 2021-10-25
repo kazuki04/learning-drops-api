@@ -11,7 +11,7 @@ import (
 )
 
 var corsWrapper = cors.New(cors.Options{
-	AllowedOrigins: []string{"http://localhost:3000"},
+	AllowedOrigins: []string{"http://localhost:8080"},
 	AllowedMethods: []string{"GET", "POST"},
 	AllowedHeaders: []string{"Content-Type", "Origin", "Accept", "*"},
 })
