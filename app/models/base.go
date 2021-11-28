@@ -23,6 +23,5 @@ func init() {
 
 func DBmigrate() *gorm.DB {
 	DbConnection.AutoMigrate(&Section{})
-	// db.Model(&Task{}).AddForeignKey("project_id", "projects(id)", "CASCADE", "CASCADE")
 	return DbConnection
 }
