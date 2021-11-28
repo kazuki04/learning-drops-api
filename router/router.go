@@ -16,6 +16,7 @@ func New() *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/section", api.ApiMakeHandler(handler.SaveSectionHandler))
+	r.HandleFunc(("/api/sections"), api.ApiMakeHandler(handler.GetSectionsHandler))
 
 	// This route is always accessible
 	r.Handle("/api/public", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
