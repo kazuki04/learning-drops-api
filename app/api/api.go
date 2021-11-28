@@ -16,7 +16,7 @@ type JSONResponse struct {
 	JSONData interface{} `json:"json_response"`
 }
 
-var apiValidPath = regexp.MustCompile("^/api/section$")
+var apiValidPath = regexp.MustCompile("^/api/sections$")
 
 func ApiError(w http.ResponseWriter, errMessage string, code int) {
 	w.Header().Set("Content-Type", "application/json")
