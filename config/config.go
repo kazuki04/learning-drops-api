@@ -11,6 +11,7 @@ type ConfigList struct {
 	LogFile  string
 	Audience string
 	Domain   string
+	Dsn      string
 }
 
 var Config ConfigList
@@ -26,5 +27,6 @@ func init() {
 		LogFile:  cfg.Section("log").Key("log_file").String(),
 		Audience: cfg.Section("auth0").Key("aud").String(),
 		Domain:   cfg.Section("auth0").Key("domain").String(),
+		Dsn:      cfg.Section("db").Key("dsn").String(),
 	}
 }
