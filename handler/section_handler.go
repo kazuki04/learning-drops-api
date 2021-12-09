@@ -17,10 +17,5 @@ func SaveSectionHandler(w http.ResponseWriter, r *http.Request) {
 func GetSectionsHandler(w http.ResponseWriter, r *http.Request) {
 	userId := r.URL.Query().Get("user_id")
 	sections := models.GetSections(userId)
-	sectionsJson, err := json.Marshal((sections))
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(sectionsJson)
+	api.ResponseJSON(sections, w, http.StatusOK)
 }
